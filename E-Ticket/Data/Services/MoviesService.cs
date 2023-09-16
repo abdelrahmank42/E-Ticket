@@ -10,15 +10,7 @@ namespace E_Ticket.Data.Services
     {
         private readonly DataContext _context;
         public MoviesService(DataContext context) : base(context) => _context = context;
-        public override async Task<Movie> GetByIdAsync(int id)
-        {
-            Movie movieDetails = await _context.Movies
-                .Include(c => c.Cinema)
-                .Include(p => p.Producer)
-                .Include(am => am.Actor_Movies).ThenInclude(a => a.Actor)
-                .FirstOrDefaultAsync(n => n.Id == id);
-
-            return movieDetails;
-        }
+        public override async Task<Movie> GetByIdAsync(int id) => await _context.Movies.Include(c => c.Cinema) .Include(p => p.Producer)
+            .Include(am => am.Actor_Movies).ThenInclude(a => a.Actor).FirstOrDefaultAsync(n => n.Id == id);
     }
 }
