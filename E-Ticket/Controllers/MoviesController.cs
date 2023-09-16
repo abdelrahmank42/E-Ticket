@@ -17,7 +17,7 @@ namespace E_Tickets.Controllers
         public override async Task<IActionResult> Index() => View(await _moviesService.GetAllAsync(m => m.Cinema));
         public override async Task<IActionResult> Details(int id)
         {
-            Movie movie = await _moviesService.GetByIdAsync(id, m=>m.Cinema, m=>m.Actor_Movies, m=>m.Producer);
+            Movie movie = await _moviesService.GetByIdAsync(id);
 
             if (movie == null) return View("NotFound");
             return View(movie);
