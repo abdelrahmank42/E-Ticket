@@ -1,4 +1,5 @@
 ﻿using E_Ticket.Data.Base;
+using E_Ticket.Data.Services.IServices;
 using E_Ticket.Models;
 using eTicket.Data.Static;
 using Microsoft.AspNetCore.Authorization;
@@ -8,15 +9,16 @@ using System.Threading.Tasks;
 
 namespace E_Ticket.Controllers.Base
 {
+    [Authorize(Roles = UserRoles.Admin)]
     public class BaseCRUDController<T> : Controller, IBaseCRUDController<T> where T : class, IEntityBase, new()
     {
         private readonly IEntityBaseRepository<T> _service;
+
         public BaseCRUDController(IEntityBaseRepository<T> entity) => _service = entity;
 
-        
         public IActionResult Create() => View();
         [HttpPost]
-        public async Task<IActionResult> Create(T entity)
+        public virtual async Task<IActionResult> Create(T entity)
         {
             if (!ModelState.IsValid)
                 return View(entity);
@@ -24,8 +26,9 @@ namespace E_Ticket.Controllers.Base
             return RedirectToAction(nameof(Index));
         }
 
-
+        [AllowAnonymous]
         public virtual async Task<IActionResult> Index() => View(await _service.GetAllAsync());
+        [AllowAnonymous]
         public virtual async Task<IActionResult> Details(int id)
         {
             var entity = await _service.GetByIdAsync(id);
@@ -33,7 +36,6 @@ namespace E_Ticket.Controllers.Base
             if (entity == null) return View("NotFound");
             return View(entity);
         }
-
         
         public async Task<IActionResult> Edit(int id)
         {

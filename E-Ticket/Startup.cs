@@ -1,19 +1,17 @@
-using E_Ticket.Data.Services;
-using E_Ticket.Models;
 using E_Ticket.Data;
+using E_Ticket.Data.Cart;
+using E_Ticket.Data.Services;
+using E_Ticket.Data.Services.IServices;
+using E_Ticket.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using E_Ticket.Data.Services.IServices;
 
 namespace E_Tickets
 {
@@ -42,8 +40,16 @@ namespace E_Tickets
             services.AddScoped<IOrdersService, OrdersService>();
             services.AddScoped<IAccountService, AccountService>();
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
+
             //Authentication and authorization
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<DataContext>();
+            services.AddMemoryCache();
+            services.AddSession();
+            services.AddAuthentication(options => options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme);
+
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,7 +69,10 @@ namespace E_Tickets
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
+            //Authentication & Authorization
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -74,7 +83,8 @@ namespace E_Tickets
             });
 
             //Seed database
-            AppDbInitializer.Seed(app);
+            DatabaseInitializer.Seed(app);
+            DatabaseInitializer.SeedUsersAndRolesAsync(app).Wait();
         }
     }
 }

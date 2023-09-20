@@ -1,6 +1,6 @@
 ﻿using E_Ticket.Data.Services.IServices;
+using E_Ticket.Data.ViewModels;
 using E_Ticket.Models;
-using E_Ticket.Models.ViewModels;
 using eTicket.Data.Static;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

@@ -1,4 +1,4 @@
-﻿namespace E_Tickets.Data.Enums
+﻿namespace E_Ticket.Data.Enums
 {
     public enum Category
     {

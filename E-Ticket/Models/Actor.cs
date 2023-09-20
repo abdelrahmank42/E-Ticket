@@ -1,7 +1,6 @@
 ﻿using E_Ticket.Data.Base;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 
 namespace E_Ticket.Models
 {

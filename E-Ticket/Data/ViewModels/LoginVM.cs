@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace E_Ticket.Models.ViewModels
+namespace E_Ticket.Data.ViewModels
 {
     public class LoginVM
     {

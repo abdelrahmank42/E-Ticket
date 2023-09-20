@@ -6,16 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Views\Actors\Create.cshtml" />
-    <None Include="Views\Actors\Delete.cshtml" />
-    <None Include="Views\Actors\Details.cshtml" />
-    <None Include="Views\Actors\Edit.cshtml" />
-    <None Include="Views\Actors\Index.cshtml" />
-    <None Include="Views\Cinemas\Create.cshtml" />
-    <None Include="Views\Cinemas\Delete.cshtml" />
-    <None Include="Views\Cinemas\Details.cshtml" />
-    <None Include="Views\Cinemas\Edit.cshtml" />
-    <None Include="Views\Cinemas\Index.cshtml" />
+    <None Include="Views\Shared\Components\ShoppingCartSummary\Default.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
