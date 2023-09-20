@@ -13,7 +13,7 @@ namespace E_Ticket.Data.Base
         private readonly DataContext _context;
         public EntityBaseRepository(DataContext context) => _context = context;
 
-        public async Task AddAsync(T entity)
+        public virtual async Task AddAsync(T entity)
         {
             await _context.Set<T>().AddAsync(entity);
             await _context.SaveChangesAsync();
@@ -44,7 +44,7 @@ namespace E_Ticket.Data.Base
             return await query.FirstOrDefaultAsync(n => n.Id == id);
         }
 
-        public async Task UpdateAsync(T entity)
+        public virtual async Task UpdateAsync(T entity)
         {
             EntityEntry entityEntry = _context.Entry<T>(entity);
             entityEntry.State = EntityState.Modified;

@@ -11,7 +11,7 @@ namespace E_Ticket.Controllers.Base
         public Task<IActionResult> Index();
 
 
-        public IActionResult Create();
+        public Task<IActionResult> Create();
         public Task<IActionResult> Create(T entity);
 
 

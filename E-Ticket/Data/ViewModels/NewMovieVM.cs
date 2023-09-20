@@ -2,10 +2,11 @@
 using System.ComponentModel.DataAnnotations;
 using System;
 using E_Ticket.Data.Enums;
+using E_Ticket.Data.Base;
 
 namespace E_Ticket.Data.ViewModels
 {
-    public class NewMovieVM
+    public class NewMovieVM 
     {
         [Required, Display(Name = "Movie name")]
         public string Name { get; set; }
@@ -17,7 +18,7 @@ namespace E_Ticket.Data.ViewModels
         public double Price { get; set; }
 
         [Required, Display(Name = "Movie poster URL")]
-        public string ImageURL { get; set; }
+        public string Poster { get; set; }
 
         [Required, Display(Name = "Movie start date")]
         public DateTime StartDate { get; set; }
@@ -26,7 +27,7 @@ namespace E_Ticket.Data.ViewModels
         public DateTime EndDate { get; set; }
 
         [Required, Display(Name = "Select a category")]
-        public Category MovieCategory { get; set; }
+        public Category Category { get; set; }
 
         //Relationships
         [Required, Display(Name = "Select actors")]
